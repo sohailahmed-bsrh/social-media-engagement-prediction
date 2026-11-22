@@ -1,121 +1,120 @@
-# Social Media Audience Engagement Predictor
+# Social Media Engagement Prediction & Virality Modeling
 
-> Machine learning regression pipeline forecasting social publication interactions.
-
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=flat-square&logo=github)](https://github.com/sohailahmed-bsrh/social-media-engagement-prediction)
-[![Live Showcase](https://img.shields.io/badge/Live-Showcase-0A66C2?style=flat-square&logo=googlechrome)](https://sohail.devsil.com/projects.html)
-[![Author](https://img.shields.io/badge/Author-Sohail%20Ahmed-20BEFF?style=flat-square)](https://sohail.devsil.com)
-
----
-
-## Overview
-
-Marketing teams publish content with high variability in reach and engagement due to lack of predictive interaction models.
-
-This project provides an end-to-end, reproducible implementation engineered to solve this challenge through verified data transformations, reliable algorithms, and production-ready architecture.
+<p align="center">
+  <a href="https://sohail.devsil.com"><strong>Portfolio</strong></a> | 
+  <a href="https://github.com/sohailahmed-bsrh"><strong>GitHub Profile</strong></a> | 
+  <a href="https://github.com/sohailahmed-bsrh/social-media-engagement-prediction"><strong>Source Repository</strong></a>
+</p>
 
 ---
 
-## Key Features
+## Executive Summary & Problem Statement
 
-- Feature extraction from post metadata including posting hour, content length, and category tags
-- Ensemble modeling utilizing Random Forest and Gradient Boosting regressors
-- Feature importance analysis quantifying the highest-utilize publishing parameters
-- Evaluation via Root Mean Squared Error (RMSE) against holdout benchmarks
+Social media algorithms prioritize posts that achieve rapid early engagement (likes, shares, comments, retweets). Marketing teams and content creators often publish without knowing which parameters (posting time, hashtag density, media type, caption length, sentiment) maximize distribution algorithms.
+
+This project implements a **Predictive Social Media Engagement Pipeline**. By modeling historical audience interactions, content features, and temporal publishing variables, the engine forecasts engagement velocity prior to publication, allowing marketing teams to optimize post metadata for maximum reach.
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/sohailahmed-bsrh/myportfolio/main/assets/images/thumbnail/social-media-engagement.jpeg" width="650" alt="Social Media Engagement Prediction"/>
+  <p><em>Predictive virality modeling and content parameter optimization engine.</em></p>
+</div>
 
 ---
 
-## System Architecture
+## Real-World Industry Applications
 
-```mermaid
-flowchart LR
-    PostMetadata[Post Parameters: Time, Length, Category] --> Encoding[Feature Processing & Scaling]
-    Encoding --> Ensemble[Ensemble Tree Regression Models]
-    Ensemble --> Score[Predicted Interaction Volume]
-    Ensemble --> utilize[Feature utilize Analysis]
+- **Editorial Scheduling Optimization**: Determines the optimal hour and day of week to release high-priority corporate announcements.
+- **Content Format Decision Making**: Quantifies expected engagement lift between static imagery, carousels, and video formats.
+- **Influencer Campaign Valuation**: Estimates expected impressions and engagement rates for prospective sponsored brand deals.
+- **Copywriting A/B Calibration**: Analyzes caption character length and sentiment polarity to maximize discussion and share rates.
+
+---
+
+## Technical Architecture & Engineering Walkthrough
+
+```
+                     [Social Media Multi-Platform Dataset]
+                                       │
+                                       ▼
+                   [Feature Extraction & NLP Sentiment Analysis]
+                 (Hashtag Count, Sentiment Score, Post Hour, Media)
+                                       │
+                                       ▼
+                   [Multi-Output Target Definition (Log-Scaled)]
+                         (Likes, Comments, Shares, Retweets)
+                                       │
+         ┌─────────────────────────────┼─────────────────────────────┐
+         ▼                             ▼                             ▼
+[Random Forest Regressor]       [Gradient Boosting (GBDT)]      [XGBoost Regressor]
+(Non-Linear Tree Splits)      (Sequential Residual Shrinkage)  (L1/L2 Regularized Trees)
+         │                             │                             │
+         └─────────────────────────────┼─────────────────────────────┘
+                                       │
+                                       ▼
+                     [SHAP Attribution & Feature Importance]
+                                       │
+                                       ▼
+                [Pre-Publication Optimization Recommendations]
 ```
 
----
+### Step 1: Content Ingestion & Metadata Processing
+Loads and cleans engagement logs (`dataset/social_media_engagement_prediction.ipynb`). Normalizes engagement distributions across follower counts to establish standardized engagement ratios.
 
-## Technology Stack
+### Step 2: Feature Engineering & NLP Enrichment
+Extracts temporal signals (Hour of Day, Day of Week, Weekend Flag), structural signals (Character Length, Word Count, Hashtag Density), and content indicators (Presence of Video, Image, Link).
 
-| Technology | Version / Spec | Role in Architecture |
-| :--- | :--- | :--- |
-| **Python** | `3.10+` | Feature engineering and model training |
-| **Scikit-learn** | `1.3+` | Random Forest regressor and GridSearch hyperparameter tuning |
-| **Pandas & NumPy** | `2.0+` | Feature matrix manipulation |
-| **Matplotlib** | `3.7+` | Feature importance bar plots |
+### Step 3: Target Transformation
+Social metrics follow extreme power-law distributions where viral outliers distort linear estimators. Applies logarithmic scaling `y = log(1 + engagement)` to linearize target variances.
 
----
+### Step 4: Machine Learning Model Benchmarking
+Trains and cross-validates multiple regression architectures (Random Forest, Gradient Boosting, XGBoost), optimizing for low Mean Absolute Error (MAE) and high explained variance ($R^2$).
 
-## Repository Structure
-
-```text
-social-media-engagement-prediction/
-|-- dataset/
-|   `-- social_media_engagement_prediction.ipynb
-|-- notebooks/
-|-- data/
-|-- .gitignore
-|-- requirements.txt
-`-- README.md
-```
+### Step 5: Feature Importance & Interpretability
+Calculates feature importance rankings via SHAP and permutation importance, pinpointing the exact levers that drive viral velocity across social channels.
 
 ---
 
-## Installation and Execution
+## Technology Stack & Implementation Specifications
 
-### Prerequisites
-- Python 3.10 or higher
-- Git version control
-- Virtual environment manager (`venv`)
+| Component | Technology | Version | Architectural Function |
+| :--- | :--- | :--- | :--- |
+| **Machine Learning** | Scikit-Learn | 1.3+ | Regressor architectures, cross-validation, scaling |
+| **Tree Ensembles** | XGBoost | 2.0+ | Extreme gradient boosted decision trees |
+| **Data Engine** | Pandas / NumPy | 2.x | Column transformations, time series indexing |
+| **Visualization** | Matplotlib / Seaborn | 3.8+ | Target distribution plots and feature importance charts |
 
-### Setup Instructions
-1. Clone the repository:
+---
+
+## Installation & Execution Guide
+
 ```bash
 git clone https://github.com/sohailahmed-bsrh/social-media-engagement-prediction.git
 cd social-media-engagement-prediction
-```
-
-2. Configure environment and dependencies:
-```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+# Windows: venv\Scriptsctivate | Unix: source venv/bin/activate
 pip install -r requirements.txt
-jupyter notebook
+jupyter notebook dataset/social_media_engagement_prediction.ipynb
 ```
-
----
-
-## Interface and Verification
-The system produces verifiable execution logs, prediction matrices, or interactive browser interfaces depending on the target mode. Verify operation by executing the commands specified above or inspecting the demonstration notebooks.
-
----
-
-## Author and Contact
-Developed by **Sohail Ahmed** — Full Stack AI Engineer & Machine Learning Specialist.
-- **Portfolio:** [sohail.devsil.com](https://sohail.devsil.com)
-- **GitHub:** [@sohailahmed-bsrh](https://github.com/sohailahmed-bsrh)
-- **Email:** [sohail.bsrh@gmail.com](mailto:sohail.bsrh@gmail.com)
 
 ---
 
 ## Author & Contact Information
 
-<table width="100%" align="center">
+<table width="100%">
   <tr>
-    <td align="center" style="padding: 20px;">
+    <td width="150" align="center" valign="middle">
+      <img src="https://avatars.githubusercontent.com/u/231165170?v=4" width="120" style="border-radius: 50%;" alt="Sohail Ahmed"/>
+    </td>
+    <td>
       <h3>Sohail Ahmed</h3>
-      <p><strong>Full-Stack Artificial Intelligence & Computer Vision Engineer</strong></p>
+      <p><strong>Senior Software Engineer & AI Systems Architect</strong></p>
+      <p>Specializing in Full-Stack AI Application Development, Computer Vision, Deep Learning Pipelines, and Scalable Automation Architectures.</p>
       <p>
-        <a href="https://sohail.devsil.com"><img src="https://img.shields.io/badge/Live_Portfolio-sohail.devsil.com-0052FF?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Portfolio"/></a>
-        <a href="https://github.com/sohailahmed-bsrh"><img src="https://img.shields.io/badge/GitHub-Profile-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/></a>
-        <a href="https://linkedin.com/in/sohail-ahmed-dev"><img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
-        <a href="mailto:sohail.bsrh@gmail.com"><img src="https://img.shields.io/badge/Email-Contact_Me-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/></a>
+        <a href="https://sohail.devsil.com"><strong>Portfolio Website</strong></a> | 
+        <a href="https://github.com/sohailahmed-bsrh"><strong>GitHub Profile</strong></a> | 
+        <a href="https://www.linkedin.com/in/sohail-ahmed-546314316/"><strong>LinkedIn</strong></a> | 
+        <a href="mailto:se906403@gmail.com"><strong>Email Contact</strong></a>
       </p>
-      <p><em>Available for technical roles in Artificial Intelligence, Computer Vision, and Full-Stack Engineering.</em></p>
-      <hr style="border: 0; height: 1px; background: #30363d; margin: 15px 0;">
-      <small>Distributed under the MIT License.</small>
     </td>
   </tr>
 </table>
