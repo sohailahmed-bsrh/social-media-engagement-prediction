@@ -12,7 +12,7 @@
 
 Marketing teams publish content with high variability in reach and engagement due to lack of predictive interaction models.
 
-This project provides an end-to-end, reproducible implementation engineered to solve this challenge through verified data transformations, robust algorithms, and production-ready architecture.
+This project provides an end-to-end, reproducible implementation engineered to solve this challenge through verified data transformations, reliable algorithms, and production-ready architecture.
 
 ---
 
@@ -20,7 +20,7 @@ This project provides an end-to-end, reproducible implementation engineered to s
 
 - Feature extraction from post metadata including posting hour, content length, and category tags
 - Ensemble modeling utilizing Random Forest and Gradient Boosting regressors
-- Feature importance analysis quantifying the highest-leverage publishing parameters
+- Feature importance analysis quantifying the highest-utilize publishing parameters
 - Evaluation via Root Mean Squared Error (RMSE) against holdout benchmarks
 
 ---
@@ -32,7 +32,7 @@ flowchart LR
     PostMetadata[Post Parameters: Time, Length, Category] --> Encoding[Feature Processing & Scaling]
     Encoding --> Ensemble[Ensemble Tree Regression Models]
     Ensemble --> Score[Predicted Interaction Volume]
-    Ensemble --> Leverage[Feature Leverage Analysis]
+    Ensemble --> utilize[Feature utilize Analysis]
 ```
 
 ---
